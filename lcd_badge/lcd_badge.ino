@@ -39,10 +39,35 @@ byte frowny[8] = {
 void setup() {
   lcd.createChar(0, smiley);
   lcd.begin(16, 2);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+}
+
+void change_eyes() {
+  right_eye(random(256), random(256), random(256));
+  left_eye(random(256), random(256), random(256));
+}
+
+
+void left_eye(int r, int g, int b) {
+  analogWrite(6, r % 256);
+  analogWrite(7, g % 256);
+  analogWrite(8, b % 256);
+}
+
+void right_eye(int r, int g, int b) {
+  analogWrite(9, r % 256);
+  analogWrite(10, g % 256);
+  analogWrite(13, b % 256);
 }
 
 void print_chars(char pword[]) {
   for(int i = 0; i < 16; i++) {
+   change_eyes();
    lcd.print(pword[i]); 
    delay(p_delay);
   } 
